@@ -1,0 +1,80 @@
+%!TEX program = pdflatex
+% ==========================================================================
+% Minimal Clean Resume Template
+% TeXume Template: minimal
+% ==========================================================================
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage[margin=1in, top=0.75in, bottom=0.75in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{parskip}
+
+\hypersetup{hidelinks}
+\pagestyle{empty}
+
+% Typography
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+
+% Section — plain, letter-spaced small caps
+\titleformat{\section}
+  {\normalsize\scshape\bfseries}
+  {}{0em}{}
+  [\vspace{-4pt}\rule{\textwidth}{0.4pt}]
+\titlespacing{\section}{0pt}{12pt}{4pt}
+
+% Custom commands
+\newcommand{\entry}[4]{%
+  \noindent
+  \begin{tabularx}{\textwidth}{Xr}
+    \textbf{#1}, \textit{#3} & \small #2 \\
+    \multicolumn{2}{l}{\small\textit{#4}} \\
+  \end{tabularx}%
+  \vspace{2pt}%
+}
+
+\newcommand{\resumeItem}[1]{\item\small{#1}}
+\newcommand{\resumeItemListStart}{%
+  \begin{itemize}[leftmargin=1.2em,itemsep=0pt,parsep=0pt,topsep=2pt]%
+}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{4pt}}
+
+\begin{document}
+
+% ─── Header ──────────────────────────────────────────────────────────────────
+{\Large\bfseries {{NAME}}}
+
+\smallskip
+\small
+{{#if PHONE}}{{PHONE}}{{/if}}%
+{{#if EMAIL}} $\cdot$ \href{mailto:{{EMAIL}}}{{{EMAIL}}}{{/if}}%
+{{#if LINKEDIN}} $\cdot$ \href{{{LINKEDIN}}}{{{LINKEDIN_DISPLAY}}}{{/if}}%
+{{#if GITHUB}} $\cdot$ \href{{{GITHUB}}}{{{GITHUB_DISPLAY}}}{{/if}}
+
+\vspace{6pt}
+
+% ─── Education ───────────────────────────────────────────────────────────────
+\section{Education}
+{{EDUCATION_ENTRIES}}
+
+% ─── Experience ──────────────────────────────────────────────────────────────
+\section{Experience}
+{{EXPERIENCE_ENTRIES}}
+
+% ─── Projects ────────────────────────────────────────────────────────────────
+{{#if PROJECTS}}
+\section{Projects}
+{{PROJECT_ENTRIES}}
+{{/if}}
+
+% ─── Skills ──────────────────────────────────────────────────────────────────
+\section{Skills}
+\small{{SKILLS_ENTRIES}}
+
+\end{document}

@@ -1,0 +1,111 @@
+%!TEX program = pdflatex
+% ==========================================================================
+% Classic Academic Resume Template
+% TeXume Template: classic
+% ==========================================================================
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontenc}
+\usepackage{inputenc}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Section formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Custom commands
+\newcommand{\resumeItem}[1]{\item\small{#1 \vspace{-2pt}}}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+  \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape {{NAME}}} \\ \vspace{4pt}
+    \small
+    {{#if PHONE}}\href{tel:{{PHONE}}}{\underline{{{PHONE}}}}{{/if}}
+    {{#if EMAIL}} $|$ \href{mailto:{{EMAIL}}}{\underline{{{EMAIL}}}}{{/if}}
+    {{#if LINKEDIN}} $|$ \href{{{LINKEDIN}}}{\underline{{{LINKEDIN_DISPLAY}}}}{{/if}}
+    {{#if GITHUB}} $|$ \href{{{GITHUB}}}{\underline{{{GITHUB_DISPLAY}}}}{{/if}}
+\end{center}
+
+%----------EDUCATION----------
+\section{Education}
+  \resumeSubHeadingListStart
+    {{EDUCATION_ENTRIES}}
+  \resumeSubHeadingListEnd
+
+%----------EXPERIENCE----------
+\section{Experience}
+  \resumeSubHeadingListStart
+    {{EXPERIENCE_ENTRIES}}
+  \resumeSubHeadingListEnd
+
+%----------PROJECTS----------
+{{#if PROJECTS}}
+\section{Projects}
+    \resumeSubHeadingListStart
+      {{PROJECT_ENTRIES}}
+    \resumeSubHeadingListEnd
+{{/if}}
+
+%----------SKILLS----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     {{SKILLS_ENTRIES}}
+    }}
+ \end{itemize}
+
+\end{document}

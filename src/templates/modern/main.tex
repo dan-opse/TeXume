@@ -1,0 +1,98 @@
+%!TEX program = xelatex
+% ==========================================================================
+% Modern Tech Resume Template
+% TeXume Template: modern
+% ==========================================================================
+\documentclass[letterpaper,10.5pt]{article}
+
+\usepackage[margin=0.7in, top=0.6in, bottom=0.6in]{geometry}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fontawesome5}
+\usepackage{tabularx}
+\usepackage{parskip}
+
+% Color palette
+\definecolor{accent}{HTML}{2563EB}
+\definecolor{dark}{HTML}{111827}
+\definecolor{mid}{HTML}{4B5563}
+\definecolor{light}{HTML}{6B7280}
+
+% Font setup (fallback safe)
+\setmainfont{Inter}[
+  BoldFont = Inter Bold,
+  ItalicFont = Inter Italic,
+  FallbackFont = {Arial, Helvetica}
+]
+
+\hypersetup{colorlinks=true, urlcolor=accent, hidelinks}
+\pagestyle{empty}
+\setlength{\parskip}{0pt}
+
+% Section titles — left-aligned with accent underline
+\titleformat{\section}
+  {\large\bfseries\color{dark}}
+  {}{0em}{}
+  [\color{accent}\titlerule]
+\titlespacing{\section}{0pt}{10pt}{4pt}
+
+% Custom macros
+\newcommand{\entry}[4]{%
+  \noindent
+  \begin{tabularx}{\textwidth}{Xr}
+    \textbf{\color{dark}#1} \hspace{4pt} \small\color{mid}#3 & \small\color{light}#2 \\
+    \small\color{mid}\textit{#4} & \\
+  \end{tabularx}%
+  \vspace{2pt}%
+}
+
+\newcommand{\projectentry}[3]{%
+  \noindent
+  \begin{tabularx}{\textwidth}{Xr}
+    \textbf{\color{dark}#1} $\cdot$ \small\color{mid}#2 & \small\color{light}#3 \\
+  \end{tabularx}%
+  \vspace{2pt}%
+}
+
+\newcommand{\resumeItem}[1]{\item\small{\color{mid}#1}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=1.2em,itemsep=1pt,parsep=0pt,topsep=2pt]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{4pt}}
+
+\begin{document}
+
+% ─── Header ──────────────────────────────────────────────────────────────────
+\begin{center}
+  {\LARGE\bfseries\color{dark} {{NAME}}} \\[6pt]
+  \color{mid}\small
+  {{#if PHONE}}\faPhone\ \href{tel:{{PHONE}}}{{{PHONE}}}{{/if}}
+  {{#if EMAIL}} \quad \faEnvelope\ \href{mailto:{{EMAIL}}}{{{EMAIL}}}{{/if}}
+  {{#if LINKEDIN}} \quad \faLinkedin\ \href{{{LINKEDIN}}}{{{LINKEDIN_DISPLAY}}}{{/if}}
+  {{#if GITHUB}} \quad \faGithub\ \href{{{GITHUB}}}{{{GITHUB_DISPLAY}}}{{/if}}
+  {{#if WEBSITE}} \quad \faGlobe\ \href{{{WEBSITE}}}{{{WEBSITE}}}{{/if}}
+\end{center}
+
+\vspace{4pt}
+
+% ─── Experience ──────────────────────────────────────────────────────────────
+\section{Experience}
+{{EXPERIENCE_ENTRIES}}
+
+% ─── Education ───────────────────────────────────────────────────────────────
+\section{Education}
+{{EDUCATION_ENTRIES}}
+
+% ─── Projects ────────────────────────────────────────────────────────────────
+{{#if PROJECTS}}
+\section{Projects}
+{{PROJECT_ENTRIES}}
+{{/if}}
+
+% ─── Skills ──────────────────────────────────────────────────────────────────
+\section{Skills}
+\small\color{mid}
+{{SKILLS_ENTRIES}}
+
+\end{document}
