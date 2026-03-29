@@ -2,9 +2,10 @@ import type { ParsedResume, TemplateSlug } from "@/lib/types";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-function esc(s: string): string {
+function esc(s?: string | null): string {
+  if (!s) return "";
   // Escape special LaTeX characters
-  return s
+  return String(s)
     .replace(/\\/g, "\\textbackslash{}")
     .replace(/&/g, "\\&")
     .replace(/%/g, "\\%")
@@ -24,8 +25,9 @@ function dateRange(start?: string, end?: string): string {
   return `${s} -- ${e}`;
 }
 
-function shortUrl(url: string): string {
-  return url.replace(/^https?:\/\/(www\.)?/, "");
+function shortUrl(url?: string | null): string {
+  if (!url) return "";
+  return String(url).replace(/^https?:\/\/(www\.)?/, "");
 }
 
 // ─── Section builders ─────────────────────────────────────────────────────────

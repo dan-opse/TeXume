@@ -1,15 +1,13 @@
-version: "3.8"
-
 services:
   # ─── Tectonic LaTeX Compilation Server ─────────────────────────────────────
-  # This is a lightweight HTTP wrapper around the Tectonic TeX engine.
-  # It listens on port 9292 and accepts POST /compile with JSON { source: "..." }
-  # returning a PDF binary.
-  #
-  # Using the community tectonic-server image:
-  # https://github.com/nicowillis/tectonic-server (or equivalent)
+  # Custom-built image: wraps the Tectonic TeX engine with a minimal Node.js
+  # HTTP server. Listens on port 9292.
+  # POST /compile  { source: "..." } → PDF binary
+  # GET  /health                     → { status: "ok" }
   tectonic:
-    image: ghcr.io/nicowillis/tectonic-server:latest
+    build:
+      context: ./tectonic-server
+      dockerfile: Dockerfile
     ports:
       - "9292:9292"
     restart: unless-stopped

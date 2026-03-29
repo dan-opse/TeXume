@@ -19,15 +19,15 @@ function getClient(): GoogleGenerativeAI {
 }
 
 /**
- * gemini-2.0-flash — low-latency tasks: resume parsing, Explain Mode
+ * gemini-2.5-flash — low-latency tasks: resume parsing, Explain Mode
  */
 export function getFlashModel() {
-  return getClient().getGenerativeModel({ model: "gemini-2.0-flash" });
+  return getClient().getGenerativeModel({ model: "gemini-2.5-flash" });
 }
 
 /**
- * gemini-1.5-pro — quality-sensitive tasks: LaTeX generation
+ * gemini-2.5-pro — quality-sensitive tasks: LaTeX generation
  */
 export function getProModel() {
-  return getClient().getGenerativeModel({ model: "gemini-1.5-pro" });
+  return getClient().getGenerativeModel({ model: "gemini-2.5-pro" });
 }

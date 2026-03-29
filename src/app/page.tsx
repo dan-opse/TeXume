@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { HeroSection } from "@/components/ui/hero-4";
+import BorderGlow from "@/components/ui/BorderGlow";
 
 export const metadata: Metadata = {
   title: "TeXume — Professional LaTeX Resume Builder",
@@ -222,50 +223,63 @@ export default function HomePage() {
 
           <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
             {steps.map((step, i) => (
-              <div
+              <BorderGlow
                 key={i}
-                style={{ display: "flex", gap: 24, alignItems: "flex-start" }}
+                glowColor="213 100 50"
+                backgroundColor="#ffffff"
+                colors={["#0066cc", "#3399ff", "#60a5fa"]}
+                borderRadius={20}
+                glowRadius={48}
+                glowIntensity={1.2}
+                edgeSensitivity={20}
+                coneSpread={30}
+                fillOpacity={0.12}
+                style={{ width: "100%" }}
               >
                 <div
-                  style={{
-                    flexShrink: 0,
-                    width: 48,
-                    height: 48,
-                    borderRadius: "var(--radius-md)",
-                    background: "var(--color-accent-muted)",
-                    border: "1px solid var(--color-accent-border)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontWeight: 700,
-                    fontSize: 13,
-                    color: "var(--color-accent-hover)",
-                    fontFamily: "var(--font-mono)",
-                  }}
+                  style={{ display: "flex", gap: 24, alignItems: "flex-start", padding: "28px 32px" }}
                 >
-                  {step.num}
-                </div>
-                <div>
-                  <h3
+                  <div
                     style={{
-                      fontSize: 18,
-                      fontWeight: 600,
-                      marginBottom: 4,
+                      flexShrink: 0,
+                      width: 48,
+                      height: 48,
+                      borderRadius: "var(--radius-md)",
+                      background: "var(--color-accent-muted)",
+                      border: "1px solid var(--color-accent-border)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontWeight: 700,
+                      fontSize: 13,
+                      color: "var(--color-accent-hover)",
+                      fontFamily: "var(--font-mono)",
                     }}
                   >
-                    {step.title}
-                  </h3>
-                  <p
-                    style={{
-                      color: "var(--color-text-secondary)",
-                      lineHeight: 1.6,
-                      margin: 0,
-                    }}
-                  >
-                    {step.desc}
-                  </p>
+                    {step.num}
+                  </div>
+                  <div>
+                    <h3
+                      style={{
+                        fontSize: 18,
+                        fontWeight: 600,
+                        marginBottom: 4,
+                      }}
+                    >
+                      {step.title}
+                    </h3>
+                    <p
+                      style={{
+                        color: "var(--color-text-secondary)",
+                        lineHeight: 1.6,
+                        margin: 0,
+                      }}
+                    >
+                      {step.desc}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </BorderGlow>
             ))}
           </div>
         </section>

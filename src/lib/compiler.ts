@@ -14,7 +14,7 @@ export async function compile(latex: string): Promise<Buffer> {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ source: latex }),
-    signal: AbortSignal.timeout(30_000), // 30s timeout
+    signal: AbortSignal.timeout(60_000), // 60s timeout for first-time package downloads
   });
 
   if (!response.ok) {
@@ -24,8 +24,8 @@ export async function compile(latex: string): Promise<Buffer> {
       body: body.slice(0, 200),
     });
 
-    // Parse line number if available
-    const lineMatch = body.match(/line (\d+)/i);
+    // Parse line number if available (e.g. from "main.tex:15: Undefined control sequence")
+    const lineMatch = body.match(/(?:line |\.tex:)(\d+)/i);
     const lineNum = lineMatch ? lineMatch[1] : null;
 
     throw new CompileError(

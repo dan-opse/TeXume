@@ -83,27 +83,6 @@ export default function Navbar({ sessionId }: NavbarProps) {
 
       {/* Right side */}
       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-        {/* Usage pill */}
-        {exportQuota && (
-          <span className="pill" aria-label={`Export usage: ${exportQuota.used} of ${exportQuota.limit} used`}>
-            <span
-              style={{
-                width: 6,
-                height: 6,
-                borderRadius: "50%",
-                background:
-                  exportQuota.used >= exportQuota.limit
-                    ? "var(--color-error)"
-                    : exportQuota.used >= exportQuota.limit - 1
-                    ? "var(--color-warning)"
-                    : "var(--color-success)",
-              }}
-            />
-            {exportQuota.used} / {exportQuota.limit} exports used
-          </span>
-        )}
-
-
         {session ? (
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <span

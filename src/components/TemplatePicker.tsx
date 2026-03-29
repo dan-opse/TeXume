@@ -7,6 +7,7 @@ interface TemplatePickerProps {
   onSelect: (slug: TemplateSlug) => void;
   onGenerate: () => void;
   loading?: boolean;
+  onClose?: () => void;
 }
 
 const TEMPLATE_COLORS: Record<TemplateSlug, string> = {
@@ -20,11 +21,35 @@ export default function TemplatePicker({
   onSelect,
   onGenerate,
   loading,
+  onClose,
 }: TemplatePickerProps) {
   const slugs: TemplateSlug[] = ["classic", "modern", "minimal"];
 
   return (
-    <div>
+    <div style={{ position: "relative" }}>
+      {onClose && (
+        <button
+          onClick={onClose}
+          style={{
+            position: "absolute",
+            top: -8,
+            right: -8,
+            width: 32,
+            height: 32,
+            borderRadius: "50%",
+            background: "var(--color-surface)",
+            border: "1px solid var(--color-border)",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "var(--color-text-muted)"
+          }}
+          aria-label="Close"
+        >
+          ✕
+        </button>
+      )}
       <h2
         style={{
           fontSize: 22,

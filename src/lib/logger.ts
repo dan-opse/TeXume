@@ -9,7 +9,7 @@ const PII_PATTERNS = [
 function sanitize(value: unknown): unknown {
   if (typeof value === "string") {
     // Do not sanitize short non-PII strings like IDs or status codes
-    if (value.length > 50) {
+    if (value.length > 5000) {
       return "[REDACTED]";
     }
     return value;

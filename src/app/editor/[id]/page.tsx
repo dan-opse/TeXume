@@ -10,7 +10,7 @@ import {
 import { EditorView, keymap, lineNumbers } from "@codemirror/view";
 import { defaultKeymap, history, historyKeymap } from "@codemirror/commands";
 import { searchKeymap, highlightSelectionMatches } from "@codemirror/search";
-import { StreamLanguage } from "@codemirror/language";
+import { StreamLanguage, syntaxHighlighting, defaultHighlightStyle } from "@codemirror/language";
 import { stex } from "@codemirror/legacy-modes/mode/stex";
 import Navbar from "@/components/Navbar";
 import TemplatePicker from "@/components/TemplatePicker";
@@ -25,6 +25,10 @@ interface SessionData {
   parsedResume: unknown;
 }
 
+interface QuotaData {
+  quotas: Array<{ action: string; used: number; limit: number }>;
+}
+
 export default function EditorPage() {
   const { id } = useParams<{ id: string }>();
   const searchParams = useSearchParams();
@@ -35,6 +39,7 @@ export default function EditorPage() {
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
   const [compiling, setCompiling] = useState(false);
   const [compileError, setCompileError] = useState<string | null>(null);
+  const [quota, setQuota] = useState<QuotaData | null>(null);
 
   // Template picker state
   const [showPicker, setShowPicker] = useState(isNew);
@@ -65,6 +70,7 @@ export default function EditorPage() {
         setSelectedTemplate(data.selectedTemplate ?? "classic");
         if (data.latexSource) {
           setLatex(data.latexSource);
+          setShowPicker(false);
         }
         // If no latex yet and not new, mark as new to show picker
         if (!data.latexSource && !isNew) {
@@ -72,6 +78,11 @@ export default function EditorPage() {
         }
       })
       .catch(() => {});
+
+    fetch(`/api/quota?sessionId=${id}`)
+      .then((r) => r.json())
+      .then(setQuota)
+      .catch(() => null);
   }, [id, isNew]);
 
   // ─── Init CodeMirror ─────────────────────────────────────────────────────
@@ -87,6 +98,7 @@ export default function EditorPage() {
           history(),
           keymap.of([...defaultKeymap, ...historyKeymap, ...searchKeymap]),
           StreamLanguage.define(stex),
+          syntaxHighlighting(defaultHighlightStyle),
           highlightSelectionMatches(),
           EditorView.theme({
             "&": {
@@ -308,6 +320,7 @@ export default function EditorPage() {
   // ─── File tree ───────────────────────────────────────────────────────────
 
   const fileTree = ["main.tex"];
+  const exportQuota = quota?.quotas?.find((q) => q.action === "export_pdf");
 
   // ─── Render ──────────────────────────────────────────────────────────────
 
@@ -414,7 +427,33 @@ export default function EditorPage() {
           </span>
         )}
 
-        {/* Export buttons */}
+        {exportQuota && (
+          <span className="pill" aria-label={`Export usage: ${exportQuota.used} of ${exportQuota.limit} used`} style={{ marginRight: 8 }}>
+            <span
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: "50%",
+                background:
+                  exportQuota.used >= exportQuota.limit
+                    ? "var(--color-error)"
+                    : exportQuota.used >= exportQuota.limit - 1
+                    ? "var(--color-warning)"
+                    : "var(--color-success)",
+              }}
+            />
+            {exportQuota.used} / {exportQuota.limit} exports used
+          </span>
+        )}
+        <button
+          id="recompile-btn"
+          className="btn btn-primary btn-sm"
+          onClick={() => triggerCompile(latex)}
+          disabled={compiling || !latex}
+          aria-label="Force PDF Recompile"
+        >
+          Recompile
+        </button>
         <button
           id="download-pdf-btn"
           className="btn btn-secondary btn-sm"
