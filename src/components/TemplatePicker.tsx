@@ -159,7 +159,7 @@ export default function TemplatePicker({
 
               <div style={{ fontWeight: 600, fontSize: 13, marginBottom: 2 }}>
                 {isSelected && (
-                  <span style={{ color, marginRight: 4 }}>✓ </span>
+                  <span style={{ color, marginRight: 4 }}></span>
                 )}
                 {meta.displayName}
               </div>
@@ -194,7 +194,7 @@ export default function TemplatePicker({
             Generating LaTeX…
           </>
         ) : (
-          `Generate with ${TEMPLATE_META[selected].displayName} →`
+          `Generate with ${TEMPLATE_META[selected].displayName}`
         )}
       </button>
     </div>

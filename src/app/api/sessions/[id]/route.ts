@@ -84,3 +84,50 @@ export async function PATCH(
     );
   }
 }
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+    const session = await auth();
+    
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
+    const [resumeSession] = await db
+      .select()
+      .from(resumeSessions)
+      .where(eq(resumeSessions.id, id))
+      .limit(1);
+
+    if (!resumeSession) {
+      return NextResponse.json(
+        { error: "Session not found." },
+        { status: 404 }
+      );
+    }
+
+    if (resumeSession.userId !== session.user.id) {
+      return NextResponse.json(
+        { error: "Forbidden: You don't have permission to delete this session." },
+        { status: 403 }
+      );
+    }
+
+    await db.delete(resumeSessions).where(eq(resumeSessions.id, id));
+
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    logger.error("Session DELETE error", { error: String(err) });
+    return NextResponse.json(
+      { error: "Failed to delete session." },
+      { status: 500 }
+    );
+  }
+}

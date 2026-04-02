@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 interface QuotaData {
   quotas: Array<{ action: string; used: number; limit: number }>;
@@ -53,22 +54,13 @@ export default function Navbar({ sessionId }: NavbarProps) {
           textDecoration: "none",
         }}
       >
-        <span
-          style={{
-            width: 28,
-            height: 28,
-            background: "var(--color-accent)",
-            borderRadius: "6px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 16,
-            fontWeight: 600,
-            color: "#fff",
-          }}
-        >
-          T
-        </span>
+        <Image
+          src="/logo/texumesubmark.png"
+          alt="TeXume logo"
+          width={28}
+          height={28}
+          style={{ borderRadius: "6px" }}
+        />
         <span
           style={{
             fontWeight: 600,
@@ -90,6 +82,13 @@ export default function Navbar({ sessionId }: NavbarProps) {
             >
               {session.user?.email}
             </span>
+            <Link
+              href="/dashboard"
+              className="btn btn-secondary btn-sm"
+              style={{ borderRadius: 40, padding: "8px 20px" }}
+            >
+              Dashboard
+            </Link>
             <button
               className="btn btn-secondary btn-sm"
               style={{ borderRadius: 40, padding: "8px 20px" }}

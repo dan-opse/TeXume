@@ -306,7 +306,6 @@ export default function HomePage() {
                 marginBottom: 16,
               }}
             >
-              💡
             </div>
             <h2
               style={{ fontSize: 28, fontWeight: 400, marginBottom: 12, letterSpacing: "-0.02em" }}
@@ -342,7 +341,7 @@ export default function HomePage() {
           }}
         >
           <p style={{ margin: 0 }}>
-            © {new Date().getFullYear()} TeXume · Built with ❤️ and LaTeX ·{" "}
+            © {new Date().getFullYear()} TeXume · Built with LaTeX ·{" "}
             <Link
               href="/privacy"
               style={{ color: "var(--color-text-muted)", textDecoration: "underline" }}

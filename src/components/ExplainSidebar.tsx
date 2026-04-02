@@ -68,7 +68,7 @@ export default function ExplainSidebar({
             className="pill pill-accent"
             style={{ fontSize: 12 }}
           >
-            💡 Explain Mode
+            Explain Mode
           </span>
           <button
             ref={closeRef}

@@ -4,6 +4,7 @@ import { db } from "@/db";
 import { resumeSessions } from "@/db/schema";
 import { checkRateLimit, convertRatelimit } from "@/lib/ratelimit";
 import { logger } from "@/lib/logger";
+import { auth } from "@/auth";
 import type { ParsedResume } from "@/lib/types";
 
 // Gemini prompt for resume parsing
@@ -211,12 +212,16 @@ async function saveAndReturn(
   parsed: ParsedResume,
   rawInput?: string
 ): Promise<NextResponse> {
-  // Calculate expiry: 24 hours from now
-  const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+  const session = await auth();
+  const userId = session?.user?.id;
 
-  const [session] = await db
+  // Calculate expiry: 24 hours from now for anonymous users, permanent for logged-in users
+  const expiresAt = userId ? null : new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+  const [resumeSession] = await db
     .insert(resumeSessions)
     .values({
+      userId: userId ?? null,
       rawInput: rawInput ?? "[REDACTED]",
       parsedResume: parsed as unknown as Record<string, unknown>,
       selectedTemplate: "classic",
@@ -225,7 +230,7 @@ async function saveAndReturn(
     .returning({ id: resumeSessions.id });
 
   return NextResponse.json({
-    sessionId: session.id,
+    sessionId: resumeSession.id,
     parsed,
   });
 }

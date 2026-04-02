@@ -384,7 +384,7 @@ export default function EditorPage() {
           aria-pressed={explainEnabled}
           title="Toggle Explain Mode — click any line to understand it"
         >
-          💡 Explain {explainEnabled ? "ON" : "OFF"}
+          Explain {explainEnabled ? "ON" : "OFF"}
         </button>
 
         <div
@@ -403,7 +403,7 @@ export default function EditorPage() {
           onClick={() => setShowPicker(true)}
           title="Switch template"
         >
-          🎨 Switch Template
+          Switch Template
         </button>
 
         <div style={{ flex: 1 }} />
@@ -460,7 +460,7 @@ export default function EditorPage() {
           onClick={handleExportPdf}
           aria-label="Download compiled PDF"
         >
-          ⬇ PDF
+          PDF
         </button>
         <button
           id="download-zip-btn"
@@ -468,7 +468,7 @@ export default function EditorPage() {
           onClick={handleExportZip}
           aria-label="Download LaTeX source ZIP"
         >
-          ⬇ Source .zip
+          Source .zip
         </button>
       </div>
 
@@ -527,7 +527,7 @@ export default function EditorPage() {
                   }}
                   onClick={() => {}}
                 >
-                  <span style={{ opacity: 0.6 }}>📄</span>
+                  <span style={{ opacity: 0.6 }}></span>
                   {file}
                 </div>
               ))}
@@ -566,7 +566,7 @@ export default function EditorPage() {
                   borderBottom: "1px solid var(--color-accent-border)",
                 }}
               >
-                💡 Click any line to explain it
+                Click any line to explain it
               </div>
             )}
 
@@ -670,7 +670,7 @@ export default function EditorPage() {
                 >
                   {compileError ? (
                     <>
-                      <div style={{ fontSize: 32 }}>⚠️</div>
+                      <div style={{ fontSize: 32 }}></div>
                       <p style={{ fontSize: 14, color: "var(--color-error)" }}>
                         {compileError}
                       </p>
@@ -717,7 +717,7 @@ export default function EditorPage() {
               boxShadow: "var(--shadow-lg)",
             }}
           >
-            <span style={{ color: "var(--color-accent-hover)" }}>💡</span>
+            <span style={{ color: "var(--color-accent-hover)" }}></span>
             Enable{" "}
             <strong style={{ color: "var(--color-text-primary)" }}>
               Explain Mode
